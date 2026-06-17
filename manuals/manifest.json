@@ -1,0 +1,62 @@
+[
+  {
+    "filename": "getting-started.txt",
+    "title": "Начало работы",
+    "size": 12400,
+    "modified": "2026-06-15"
+  },
+  {
+    "filename": "api-reference.md",
+    "title": "Справочник API",
+    "size": 87300,
+    "modified": "2026-06-10"
+  },
+  {
+    "filename": "config-example.json",
+    "title": "Пример конфигурации",
+    "size": 3200,
+    "modified": "2026-06-12"
+  },
+  {
+    "filename": "deployment-guide.txt",
+    "title": "Руководство по развёртыванию",
+    "size": 25600,
+    "modified": "2026-06-14"
+  },
+  {
+    "filename": "database-schema.sql",
+    "title": "Схема базы данных",
+    "size": 8900,
+    "modified": "2026-06-13"
+  },
+  {
+    "filename": "logging-best-practices.md",
+    "title": "Лучшие практики логирования",
+    "size": 14200,
+    "modified": "2026-06-11"
+  },
+  {
+    "filename": "environment-variables.env",
+    "title": "Переменные окружения",
+    "size": 2100,
+    "modified": "2026-06-16"
+  },
+  {
+    "filename": "nginx-config.conf",
+    "title": "Конфигурация Nginx",
+    "size": 5300,
+    "modified": "2026-06-09"
+  },
+  {
+    "filename": "docker-compose.yml",
+    "title": "Docker Compose",
+    "size": 7800,
+    "modified": "2026-06-08"
+  },
+  {
+    "filename": "release-notes.txt",
+    "title": "Примечания к релизу",
+    "size": 16400,
+    "modified": "2026-06-17"
+  }
+]
