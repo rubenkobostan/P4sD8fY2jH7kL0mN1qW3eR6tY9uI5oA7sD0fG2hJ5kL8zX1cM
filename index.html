@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 Библиотека мануалов</title>
+    <style>
+        /* ============================================================
+                 CSS — 25 лет опыта в каждой строчке
+                 ============================================================ */
+
+        /* ---------- Сброс & база ---------- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0b0d15;
+            --bg-secondary: #131724;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --text-primary: #eef2f8;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-1: #60a5fa;
+            --accent-2: #a78bfa;
+            --accent-3: #34d399;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* ---------- Анимированный фон ---------- */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 20s ease-in-out infinite alternate;
+        }
+        .bg-orb--1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-1), transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+        .bg-orb--2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-2), transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -7s;
+        }
+        .bg-orb--3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-3), transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+            opacity: 0.08;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(40px, -30px) scale(1.05);
+            }
+            66% {
+                transform: translate(-20px, 40px) scale(0.95);
+            }
+            100% {
+                transform: translate(30px, 20px) scale(1.02);
+            }
+        }
+
+        /* ---------- Сетка фона (микро-текстура) ---------- */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.02) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* ---------- Обёртка ---------- */
+        .app {
+            position: relative;
+            z-index: 1;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 24px 32px 32px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- Хедер ---------- */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-brand .logo {
+            font-size: 2rem;
+            line-height: 1;
+            filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.3));
+            animation: logoPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.05) rotate(2deg);
+            }
+        }
+
+        .header-brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .header-brand .sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            -webkit-text-fill-color: var(--text-muted);
+            background: none;
+            display: block;
+            margin-top: -2px;
+            letter-spacing: 0.3px;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .header-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .header-stats .stat-item .num {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-feature-settings: "tnum";
+        }
+
+        /* ---------- Основная сетка ---------- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 28px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        @media (max-width: 820px) {
+            .app {
+                padding: 16px;
+            }
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .header {
+                padding: 14px 18px;
+            }
+            .header-brand h1 {
+                font-size: 1.2rem;
+            }
+            .header-stats .stat-item {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ---------- Боковая панель (список мануалов) ---------- */
+        .sidebar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--glass-shadow);
+            padding: 20px 0 16px;
+            display: flex;
+            flex-direction: column;
+            max-height: 75vh;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 0 20px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .sidebar-header h2 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 10px 14px 10px 42px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            font-family: var(--font);
+        }
+
+        .search-wrap input::placeholder {
+            color: var(--text-muted);
+        }
+        .search-wrap input:focus {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        /* ---------- Список файлов ---------- */
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 8px 8px 12px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+        }
+
+        .file-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .file-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .file-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .file-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.06);
+            transform: translateX(4px);
+        }
+
+        .file-item.active {
+            background: rgba(96, 165, 250, 0.10);
+            border-color: rgba(96, 165, 250, 0.20);
+            box-shadow: 0 0 30px rgba(96, 165, 250, 0.04);
+        }
+
+        .file-item .file-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .file-item .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-item .file-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-item .file-meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .file-item .file-badge {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 40px;
+            background: rgba(96, 165, 250, 0.15);
+            color: var(--accent-1);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+
+        .file-item .file-badge.txt {
+            background: rgba(52, 211, 153, 0.12);
+            color: var(--accent-3);
+        }
+
+        .file-item .file-badge.md {
+            background: rgba(167, 139, 250, 0.15);
+            color: var(--accent-2);
+        }
+
+        .file-item .file-badge.json {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+        }
+
+        /* пустое состояние */
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .empty-state .big {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        /* ---------- Область контента ---------- */
+        .content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--glass-shadow);
+            padding: 32px 36px;
+            min-height: 55vh;
+            max-height: 75vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.10);
+            border-radius: 10px;
+        }
+
+        /* ---------- Приветствие (состояние по умолчанию) ---------- */
+        .welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            min-height: 320px;
+            color: var(--text-secondary);
+        }
+
+        .welcome .big-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 40px rgba(96, 165, 250, 0.15));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .welcome h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            font-size: 1rem;
+            max-width: 440px;
+            color: var(--text-muted);
+        }
+
+        .welcome .hint {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            padding: 8px 24px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+        }
+
+        /* ---------- Отображение мануала ---------- */
+        .manual-view {
+            animation: fadeSlideIn 0.5s ease-out;
+        }
+
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .manual-view .manual-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .manual-view .manual-title .ext {
+            font-size: 0.65rem;
+            font-weight: 500;
+            padding: 2px 12px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .manual-view .manual-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .manual-view .manual-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .manual-view .manual-body {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: var(--font);
+        }
+
+        .manual-view .manual-body .line-numbers {
+            display: none;
+        }
+
+        /* ---------- Скелетон загрузки ---------- */
+        .skeleton {
+            padding: 20px 0;
+        }
+        .skeleton .line {
+            height: 14px;
+            border-radius: 8px;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.03),
+                    rgba(255, 255, 255, 0.07),
+                    rgba(255, 255, 255, 0.03));
+            background-size: 200% 100%;
+            animation: shimmer 1.8s ease-in-out infinite;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .skeleton .line:nth-child(2) {
+            width: 92%;
+        }
+        .skeleton .line:nth-child(3) {
+            width: 78%;
+        }
+        .skeleton .line:nth-child(4) {
+            width: 85%;
+        }
+        .skeleton .line:nth-child(5) {
+            width: 60%;
+        }
+        .skeleton .line.short {
+            width: 45%;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ---------- Ошибка ---------- */
+        .error-message {
+            padding: 30px;
+            text-align: center;
+            color: #f87171;
+        }
+        .error-message .big {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        .error-message p {
+            font-size: 0.95rem;
+        }
+
+        /* ---------- Адаптив для контента ---------- */
+        @media (max-width: 820px) {
+            .content {
+                padding: 20px;
+                max-height: 60vh;
+                min-height: 40vh;
+            }
+            .manual-view .manual-title {
+                font-size: 1.4rem;
+            }
+            .welcome .big-icon {
+                font-size: 3.5rem;
+            }
+            .welcome h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app {
+                padding: 10px;
+            }
+            .header-brand .logo {
+                font-size: 1.5rem;
+            }
+            .header-brand h1 {
+                font-size: 1rem;
+            }
+            .header-stats .stat-item {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+            .file-item {
+                padding: 10px 12px;
+            }
+            .file-item .file-name {
+                font-size: 0.8rem;
+            }
+            .content {
+                padding: 16px;
+                max-height: 50vh;
+            }
+            .manual-view .manual-title {
+                font-size: 1.2rem;
+            }
+            .manual-view .manual-body {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ---------- Утилиты ---------- */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .flex {
+            display: flex;
+        }
+        .items-center {
+            align-items: center;
+        }
+
+        /* ---------- Индикатор загрузки (спиннер) ---------- */
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-top: 2px solid var(--accent-1);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ---------- Подвал ---------- */
+        .footer {
+            margin-top: 24px;
+            padding: 12px 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            letter-spacing: 0.3px;
+        }
+
+        .footer a {
+            color: var(--accent-1);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .footer a:hover {
+            color: var(--accent-2);
+        }
+
+        /* ---------- Анимация появления для элементов списка ---------- */
+        .file-item {
+            opacity: 0;
+            animation: listItemIn 0.4s ease-out forwards;
+        }
+
+        .file-item:nth-child(1) {
+            animation-delay: 0.02s;
+        }
+        .file-item:nth-child(2) {
+            animation-delay: 0.04s;
+        }
+        .file-item:nth-child(3) {
+            animation-delay: 0.06s;
+        }
+        .file-item:nth-child(4) {
+            animation-delay: 0.08s;
+        }
+        .file-item:nth-child(5) {
+            animation-delay: 0.10s;
+        }
+        .file-item:nth-child(6) {
+            animation-delay: 0.12s;
+        }
+        .file-item:nth-child(7) {
+            animation-delay: 0.14s;
+        }
+        .file-item:nth-child(8) {
+            animation-delay: 0.16s;
+        }
+        .file-item:nth-child(9) {
+            animation-delay: 0.18s;
+        }
+        .file-item:nth-child(10) {
+            animation-delay: 0.20s;
+        }
+        .file-item:nth-child(11) {
+            animation-delay: 0.22s;
+        }
+        .file-item:nth-child(12) {
+            animation-delay: 0.24s;
+        }
+        .file-item:nth-child(13) {
+            animation-delay: 0.26s;
+        }
+        .file-item:nth-child(14) {
+            animation-delay: 0.28s;
+        }
+        .file-item:nth-child(15) {
+            animation-delay: 0.30s;
+        }
+        .file-item:nth-child(16) {
+            animation-delay: 0.32s;
+        }
+        .file-item:nth-child(17) {
+            animation-delay: 0.34s;
+        }
+        .file-item:nth-child(18) {
+            animation-delay: 0.36s;
+        }
+        .file-item:nth-child(19) {
+            animation-delay: 0.38s;
+        }
+        .file-item:nth-child(20) {
+            animation-delay: 0.40s;
+        }
+
+        @keyframes listItemIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ---------- Улучшенный скролл для всей страницы ---------- */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== Фоновые элементы ===== -->
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+    <div class="bg-grid"></div>
+
+    <!-- ===== ПРИЛОЖЕНИЕ ===== -->
+    <div class="app">
+
+        <!-- ===== ХЕДЕР ===== -->
+        <header class="header">
+            <div class="header-brand">
+                <span class="logo">📚</span>
+                <div>
+                    <h1>Библиотека мануалов</h1>
+                    <span class="sub">техническая документация &amp; руководства</span>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    📄 <span class="num" id="totalCount">0</span>
+                </div>
+                <div class="stat-item">
+                    🔍 <span class="num" id="loadedCount">0</span> загружено
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== ОСНОВНАЯ СЕТКА ===== -->
+        <div class="main-grid">
+
+            <!-- ===== САЙДБАР ===== -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2>📂 Мануалы</h2>
+                    <div class="search-wrap">
+                        <span class="icon">🔎</span>
+                        <input type="text" id="searchInput" placeholder="Фильтр по названию…" />
+                    </div>
+                </div>
+
+                <div class="file-list" id="fileList">
+                    <!-- динамически -->
+                    <div class="empty-state">
+                        <div class="big">📭</div>
+                        <p>Загрузка списка мануалов…</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- ===== ОБЛАСТЬ КОНТЕНТА ===== -->
+            <main class="content" id="contentArea">
+                <!-- Приветствие (по умолчанию) -->
+                <div class="welcome" id="welcome">
+                    <div class="big-icon">📖</div>
+                    <h2>Добро пожаловать</h2>
+                    <p>Выберите мануал из списка слева, чтобы начать чтение.</p>
+                    <div class="hint">✨ все документы загружаются из папки <strong>manuals</strong></div>
+                </div>
+
+                <!-- Область для отображения мануала -->
+                <div id="manualContainer" class="hidden"></div>
+            </main>
+
+        </div>
+
+        <!-- ===== ПОДВАЛ ===== -->
+        <footer class="footer">
+            <span>© 2026 · Библиотека мануалов · </span>
+            <span>сделано с ❤️ и 25-летним опытом</span>
+            <span style="margin-left:12px; opacity:0.4;">·</span>
+            <span style="margin-left:12px; opacity:0.5;" id="fileCountFooter">0 документов</span>
+        </footer>
+
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT — вся магия
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- конфигурация ----------
+            const MANIFEST_PATH = 'manuals/manifest.json';
+            const MANUALS_DIR = 'manuals/';
+
+            // DOM-ссылки
+            const fileListEl = document.getElementById('fileList');
+            const searchInput = document.getElementById('searchInput');
+            const contentArea = document.getElementById('contentArea');
+            const welcomeEl = document.getElementById('welcome');
+            const manualContainer = document.getElementById('manualContainer');
+            const totalCountEl = document.getElementById('totalCount');
+            const loadedCountEl = document.getElementById('loadedCount');
+            const fileCountFooter = document.getElementById('fileCountFooter');
+
+            // состояние
+            let manuals = []; // { id, filename, title, ext, size?, modified? }
+            let currentFileId = null;
+            let isLoading = false;
+
+            // ---------- вспомогательные функции ----------
+            function formatFileSize(bytes) {
+                if (!bytes) return '—';
+                const k = 1024;
+                const sizes = ['Б', 'КБ', 'МБ', 'ГБ'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+            }
+
+            function getFileExtension(filename) {
+                return filename.split('.').pop().toLowerCase();
+            }
+
+            function getFileIcon(ext) {
+                const map = {
+                    'txt': '📄',
+                    'md': '📝',
+                    'json': '⚙️',
+                    'xml': '📋',
+                    'csv': '📊',
+                    'log': '📜',
+                    'conf': '🔧',
+                    'cfg': '🔧',
+                    'ini': '⚙️',
+                    'yaml': '📃',
+                    'yml': '📃',
+                    'html': '🌐',
+                    'css': '🎨',
+                    'js': '⚡',
+                    'pdf': '📕',
+                };
+                return map[ext] || '📄';
+            }
+
+            function getBadgeClass(ext) {
+                const map = {
+                    'txt': 'txt',
+                    'md': 'md',
+                    'json': 'json',
+                    'xml': 'json',
+                    'csv': 'txt',
+                    'log': 'txt',
+                    'conf': 'txt',
+                    'cfg': 'txt',
+                    'ini': 'txt',
+                    'yaml': 'txt',
+                    'yml': 'txt',
+                    'html': 'txt',
+                    'css': 'txt',
+                    'js': 'txt',
+                };
+                return map[ext] || 'txt';
+            }
+
+            function getFileTitle(filename) {
+                // убираем расширение, заменяем _ и - на пробелы, капитализируем
+                let name = filename.replace(/\.[^.]+$/, '');
+                name = name.replace(/[_-]/g, ' ');
+                return name.charAt(0).toUpperCase() + name.slice(1);
+            }
+
+            // ---------- рендер списка ----------
+            function renderFileList(filter = '') {
+                const filtered = manuals.filter(m =>
+                    m.title.toLowerCase().includes(filter.toLowerCase()) ||
+                    m.filename.toLowerCase().includes(filter.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    fileListEl.innerHTML = `
+                            <div class="empty-state">
+                                <div class="big">🔍</div>
+                                <p>Ничего не найдено</p>
+                            </div>
+                        `;
+                    return;
+                }
+
+                let html = '';
+                for (const m of filtered) {
+                    const isActive = m.id === currentFileId;
+                    const ext = m.ext;
+                    const icon = getFileIcon(ext);
+                    const badgeClass = getBadgeClass(ext);
+                    const sizeStr = m.size ? formatFileSize(m.size) : '—';
+
+                    html += `
+                            <div class="file-item ${isActive ? 'active' : ''}" 
+                                 data-id="${m.id}"
+                                 data-filename="${m.filename}"
+                                 data-title="${m.title}"
+                                 data-ext="${m.ext}">
+                                <span class="file-icon">${icon}</span>
+                                <div class="file-info">
+                                    <div class="file-name">${m.title}</div>
+                                    <div class="file-meta">
+                                        <span>${m.filename}</span>
+                                        <span>·</span>
+                                        <span>${sizeStr}</span>
+                                    </div>
+                                </div>
+                                <span class="file-badge ${badgeClass}">${ext.toUpperCase()}</span>
+                            </div>
+                        `;
+                }
+
+                fileListEl.innerHTML = html;
+
+                // обновляем счётчики
+                totalCountEl.textContent = manuals.length;
+                loadedCountEl.textContent = manuals.filter(m => m.loaded).length;
+                fileCountFooter.textContent = manuals.length + ' документов';
+
+                // вешаем обработчики на клик
+                document.querySelectorAll('.file-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id, 10);
+                        const m = manuals.find(x => x.id === id);
+                        if (m) loadManual(m);
+                    });
+                });
+            }
+
+            // ---------- загрузка мануала ----------
+            async function loadManual(manual) {
+                if (isLoading) return;
+                if (currentFileId === manual.id && manual.content) {
+                    // уже загружен — просто показываем
+                    showManualContent(manual);
+                    return;
+                }
+
+                isLoading = true;
+                currentFileId = manual.id;
+
+                // показываем скелетон
+                manualContainer.classList.remove('hidden');
+                welcomeEl.classList.add('hidden');
+                manualContainer.innerHTML = `
+                        <div class="skeleton">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line short"></div>
+                        </div>
+                    `;
+
+                // подсвечиваем активный элемент в списке
+                document.querySelectorAll('.file-item').forEach(el => {
+                    el.classList.toggle('active', parseInt(el.dataset.id, 10) === manual.id);
+                });
+
+                try {
+                    const path = MANUALS_DIR + manual.filename;
+                    const resp = await fetch(path);
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+                    const text = await resp.text();
+                    manual.content = text;
+                    manual.loaded = true;
+                    showManualContent(manual);
+
+                    // обновляем счётчик загруженных
+                    const loaded = manuals.filter(m => m.loaded).length;
+                    loadedCountEl.textContent = loaded;
+
+                } catch (err) {
+                    manualContainer.innerHTML = `
+                            <div class="error-message">
+                                <div class="big">⚠️</div>
+                                <p><strong>Не удалось загрузить мануал</strong></p>
+                                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">
+                                    ${err.message}
+                                </p>
+                            </div>
+                        `;
+                    console.error('[ManualLoader] Ошибка загрузки:', err);
+                }
+
+                isLoading = false;
+            }
+
+            // ---------- отображение содержимого мануала ----------
+            function showManualContent(manual) {
+                const ext = manual.ext;
+                let bodyText = manual.content || '⚠️ Содержимое отсутствует.';
+
+                // для JSON пытаемся красиво отформатировать
+                if (ext === 'json') {
+                    try {
+                        const parsed = JSON.parse(bodyText);
+                        bodyText = JSON.stringify(parsed, null, 2);
+                    } catch (_) { /* оставляем как есть */ }
+                }
+
+                const sizeStr = manual.size ? formatFileSize(manual.size) : '—';
+                const lines = bodyText.split('\n').length;
+
+                manualContainer.innerHTML = `
+                        <div class="manual-view">
+                            <div class="manual-title">
+                                ${getFileIcon(ext)} ${manual.title}
+                                <span class="ext">.${ext}</span>
+                            </div>
+                            <div class="manual-meta">
+                                <span>📄 ${manual.filename}</span>
+                                <span>📏 ${sizeStr}</span>
+                                <span>📃 ${lines} строк</span>
+                                <span>🕒 ${manual.modified || 'неизвестно'}</span>
+                            </div>
+                            <div class="manual-body">${escapeHtml(bodyText)}</div>
+                        </div>
+                    `;
+
+                manualContainer.classList.remove('hidden');
+                welcomeEl.classList.add('hidden');
+
+                // прокручиваем вверх
+                contentArea.scrollTop = 0;
+            }
+
+            // ---------- простой экранировщик HTML ----------
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // ---------- загрузка манифеста ----------
+            async function loadManifest() {
+                try {
+                    const resp = await fetch(MANIFEST_PATH);
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+                    const data = await resp.json();
+
+                    if (!Array.isArray(data) || data.length === 0) {
+                        fileListEl.innerHTML = `
+                                <div class="empty-state">
+                                    <div class="big">📭</div>
+                                    <p>В папке <strong>manuals</strong> нет файлов.</p>
+                                    <p style="font-size:0.8rem; margin-top:8px; color:var(--text-muted);">
+                                        Добавьте файлы и обновите manifest.json
+                                    </p>
+                                </div>
+                            `;
+                        return;
+                    }
+
+                    // нормализуем данные
+                    manuals = data.map((item, index) => {
+                        const filename = item.filename || item.file || item.name || `manual_${index + 1}.txt`;
+                        const ext = getFileExtension(filename);
+                        const title = item.title || getFileTitle(filename);
+                        return {
+                            id: index + 1,
+                            filename: filename,
+                            title: title,
+                            ext: ext,
+                            size: item.size || null,
+                            modified: item.modified || item.date || null,
+                            content: null,
+                            loaded: false,
+                        };
+                    });
+
+                    renderFileList();
+
+                    // если есть файлы, загружаем первый автоматически
+                    if (manuals.length > 0) {
+                        loadManual(manuals[0]);
+                    }
+
+                } catch (err) {
+                    fileListEl.innerHTML = `
+                            <div class="empty-state">
+                                <div class="big">🚫</div>
+                                <p><strong>Не удалось загрузить манифест</strong></p>
+                                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:6px;">
+                                    ${err.message}
+                                </p>
+                                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:12px;">
+                                    Убедитесь, что файл <strong>manuals/manifest.json</strong> существует
+                                </p>
+                            </div>
+                        `;
+                    console.error('[ManualLoader] Ошибка манифеста:', err);
+                }
+            }
+
+            // ---------- поиск с debounce ----------
+            let searchTimer = null;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimer);
+                searchTimer = setTimeout(() => {
+                    renderFileList(this.value);
+                }, 200);
+            });
+
+            // ---------- клавиатурная навигация ----------
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+F / Cmd+F — фокус на поиск
+                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                }
+
+                // Escape — сброс поиска
+                if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.value = '';
+                    renderFileList('');
+                    searchInput.blur();
+                }
+            });
+
+            // ---------- инициализация ----------
+            loadManifest();
+
+            // пересчёт счётчиков при загрузке
+            console.log('📚 Библиотека мануалов запущена');
+            console.log('💡 Используйте Ctrl+F для поиска');
+
+        })();
+    </script>
+
+</body>
+</html>
